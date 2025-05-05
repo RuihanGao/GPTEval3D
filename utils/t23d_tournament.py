@@ -18,6 +18,7 @@ from utils import glide_elo
 from utils import image_utils
 from utils import gpt4v_utils
 from multiprocessing import Pool, cpu_count
+import pdb
 
 
 class T23DMethod():
@@ -168,10 +169,12 @@ class T23DTournament():
         scheduled_lst = []
         if self.cfg['ensembles'] is not None:
             # with a specific ensemble strategy
-            total_comparisons = np.sum([en['num_comparisons'] for en in self.cfg['ensembles']])
+            total_comparisons = np.sum([en['num_comparisons'] for en in self.cfg['ensembles']]) # 1500
             ensemble_modes = []
             for en in self.cfg['ensembles']:
                 ensemble_modes.extend([en] * en['num_comparisons'])
+            # print(f"check total_comparisons: {total_comparisons}, budget: {budget}") 
+            # pdb.set_trace()
             assert total_comparisons < budget
             pbar = tqdm.tqdm(total=total_comparisons)
             ks = list(scheduled.keys())
